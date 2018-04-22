@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
+import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-facebook';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 export class AppComponent {
 
   currentState: string;
+  accessToken: string;
 
   constructor(
     private fb: FacebookService
@@ -21,6 +22,13 @@ export class AppComponent {
 
     fb.init(initParams);
     console.log(this.fb);
+    this.fb.getLoginStatus()
+    .then((status: LoginStatus) => {
+      this.currentState = status.status;
+      this.accessToken = status.authResponse.accessToken;
+    }, err => {
+      console.log('error', err);
+    });
   }
 
   public fbLogin() {
