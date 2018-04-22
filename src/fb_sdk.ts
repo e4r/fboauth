@@ -1,5 +1,5 @@
 const FB_APP_ID = '444963099307703';
-(<any>window).fbAsyncInit = ()=> {
+(<any>window).fbAsyncInit = () => {
   FB.init({
     appId: FB_APP_ID,
     xfbml: false,
@@ -14,4 +14,4 @@ const FB_APP_ID = '444963099307703';
   js = d.createElement(s); js.id = id;
   js.src = '//connect.facebook.net/en_US/sdk.js';
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk')
+}(document, 'script', 'facebook-jssdk'));
