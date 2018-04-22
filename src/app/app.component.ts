@@ -10,6 +10,7 @@ export class AppComponent {
 
   currentState: string;
   accessToken: string;
+  user: any;
 
   constructor(
     private fb: FacebookService
@@ -26,6 +27,11 @@ export class AppComponent {
     .then((status: LoginStatus) => {
       this.currentState = status.status;
       this.accessToken = status.authResponse.accessToken;
+      this.fb.api('/me?fields=id,email,first_name,last_name,picture,gender')
+      .then(userObj => {
+        console.log('userObj', userObj);
+
+      });
     }, err => {
       console.log('error', err);
     });
