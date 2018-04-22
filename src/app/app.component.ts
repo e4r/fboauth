@@ -4,9 +4,12 @@ import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  currentState: string;
+
   constructor(
     private fb: FacebookService
   ) {
@@ -17,6 +20,7 @@ export class AppComponent {
     };
 
     fb.init(initParams);
+    console.log(this.fb);
   }
 
   public fbLogin() {
