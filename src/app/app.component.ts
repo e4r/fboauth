@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  public fbLogin() {
+    // this.router.navigate(['./home']);
+    FB.getLoginStatus((response) => {
+        if (response.status === 'connected') {
+          console.log('connected');
+        } else {
+            FB.login((loginResponse) => {
+              console.log('loginResponse', loginResponse);
+            });
+        }
+    });
+}
 }

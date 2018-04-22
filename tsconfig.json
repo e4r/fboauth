@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": [
+      "node", "jasmine", "facebook-js-sdk"
+    ],
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

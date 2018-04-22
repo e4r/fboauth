@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@types/facebook-js-sdk": "^2.8.4",
     "core-js": "^2.4.1",
     "express": "^4.16.3",
     "rxjs": "^5.5.6",
