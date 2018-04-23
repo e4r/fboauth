@@ -27,16 +27,18 @@ export class AppComponent {
 
     fb.init(initParams);
     console.log(this.fb);
+
     this.fb.getLoginStatus()
     .then((status: LoginStatus) => {
-      this.currentState = status.status;
-      this.accessToken = status.authResponse.accessToken;
-      this.fb.api('/me?fields=id,email,first_name,last_name,picture,gender')
-      .then(userObj => {
-        console.log('userObj', userObj);
-        this.user = userObj;
-        this.userFields = Object.keys(this.user);
-      });
+      console.log(status);
+      this.fb.login(
+        {
+          scope: 'public_profile,email',
+          return_scopes: true
+        })
+        .then(loginResponse => {
+          console.log('loginREsponse', loginResponse);
+        });
     }, err => {
       console.log('error', err);
     });
