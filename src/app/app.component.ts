@@ -41,19 +41,26 @@ export class AppComponent {
           .then(loginResponse => {
             if (loginResponse.status === 'connected') {
               // ora ho l'accessToken, posso recuperare info
-              this.fb.api('/me', 'get', {
-                fields: [
-                  'first_name', 'last_name', 'email', 'gender', 'picture'
-                ]
-              }).then(obj => console.log(obj));
+              this.setInfos();
             }
           });
       } else {
-        console.log('authToken should be here', status);
+        this.setInfos();
       }
 
     }, err => {
       console.log('error', err);
+    });
+  }
+
+  private setInfos() {
+    this.fb.api('/me', 'get', {
+      fields: [
+        'first_name', 'last_name', 'email', 'gender', 'picture'
+      ]
+    }).then(obj => {
+      this.user = obj;
+      this.userFields = Object.keys(this.user);
     });
   }
 
