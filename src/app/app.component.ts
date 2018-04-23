@@ -28,25 +28,29 @@ export class AppComponent {
     fb.init(initParams);
     console.log(this.fb);
 
+    this.retrieveInfos();
+
+  }
+
+  private retrieveInfos(): LoginStatus|any|void {
     this.fb.getLoginStatus()
     .then((status: LoginStatus) => {
       console.log(status);
-      this.fb.login(
-        {
-          scope: 'public_profile,email',
-          return_scopes: true
-        })
-        .then(loginResponse => {
-          console.log('loginREsponse', loginResponse);
-        });
+      if (status.status !== 'connected') {
+        this.fb.login({
+            scope: 'public_profile,email',
+            return_scopes: true
+          })
+          .then(loginResponse => {
+            console.log('loginREsponse', loginResponse);
+          });
+      } else {
+        console.log('authToken should be here', status);
+      }
+
     }, err => {
       console.log('error', err);
     });
   }
 
-  public fbLogin() {
-    this.fb.login()
-      .then((response: LoginResponse) => console.log('ok', response))
-      .catch((error: any) => console.error('ko', error));
-  }
 }
