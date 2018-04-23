@@ -17,24 +17,28 @@ export class AppComponent {
     private fb: FacebookService,
     private http: HttpClient
   ) {
+
+    // i parametri iniziali richiesti dall'SDK di FB
     const initParams: InitParams = {
       appId: '444963099307703',
       xfbml: true,
       version: 'v2.11'
     };
-    console.log(this.http);
-
     fb.init(initParams);
-    console.log(this.fb);
-
-
   }
 
-  fbLogin(): LoginStatus|any|void {
+  /**
+   * Questa funzione è predisposta per non restituire valori
+   */
+  fbLogin(): void {
+    // recupero lo status
     this.fb.getLoginStatus()
     .then((status: LoginStatus) => {
+      // una volta recuperato lo status verifico se sono connesso
       this.currentState = status.status;
       if (status.status !== 'connected') {
+        // non sono connesso, dunque apro il dialog per
+        // la richiesta di permessi, o direttamente il recupero delle informazioni utente
         this.fb.login({
             scope: 'public_profile,email',
             return_scopes: true
@@ -45,8 +49,10 @@ export class AppComponent {
               // ora ho l'accessToken, posso recuperare info
               this.setInfos();
             }
+            // non aggiungo l'else, l'utente ha chiuso il dialog
           });
       } else {
+        // se sono connesso recupero le informazioni dell'utente
         this.setInfos();
       }
 
@@ -55,7 +61,7 @@ export class AppComponent {
     });
   }
 
-  private setInfos() {
+  private setInfos(): void {
     this.fb.api('/me', 'get', {
       fields: [
         'first_name', 'last_name', 'email', 'gender', 'picture'

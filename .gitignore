@@ -9,6 +9,7 @@
 # dependencies
 /node_modules
 
+.gitignore
 # IDEs and editors
 /.idea
 .project
