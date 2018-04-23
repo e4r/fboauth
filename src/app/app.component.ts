@@ -33,12 +33,14 @@ export class AppComponent {
   fbLogin(): LoginStatus|any|void {
     this.fb.getLoginStatus()
     .then((status: LoginStatus) => {
+      this.currentState = status.status;
       if (status.status !== 'connected') {
         this.fb.login({
             scope: 'public_profile,email',
             return_scopes: true
           })
           .then(loginResponse => {
+            this.currentState = loginResponse.status;
             if (loginResponse.status === 'connected') {
               // ora ho l'accessToken, posso recuperare info
               this.setInfos();
