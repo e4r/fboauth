@@ -28,11 +28,10 @@ export class AppComponent {
     fb.init(initParams);
     console.log(this.fb);
 
-    this.retrieveInfos();
 
   }
 
-  private retrieveInfos(): LoginStatus|any|void {
+  fbLogin(): LoginStatus|any|void {
     this.fb.getLoginStatus()
     .then((status: LoginStatus) => {
       console.log(status);
