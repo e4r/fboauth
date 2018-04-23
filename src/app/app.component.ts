@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
 
   currentState: string;
-  accessToken: string;
   user: any;
   userFields: string[];
 
@@ -34,14 +33,20 @@ export class AppComponent {
   fbLogin(): LoginStatus|any|void {
     this.fb.getLoginStatus()
     .then((status: LoginStatus) => {
-      console.log(status);
       if (status.status !== 'connected') {
         this.fb.login({
             scope: 'public_profile,email',
             return_scopes: true
           })
           .then(loginResponse => {
-            console.log('loginREsponse', loginResponse);
+            if (loginResponse.status === 'connected') {
+              // ora ho l'accessToken, posso recuperare info
+              this.fb.api('/me', 'get', {
+                fields: [
+                  'first_name', 'last_name', 'email', 'gender', 'picture'
+                ]
+              }).then(obj => console.log(obj));
+            }
           });
       } else {
         console.log('authToken should be here', status);
