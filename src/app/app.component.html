@@ -9,8 +9,12 @@
         <dd>{{currentState}}</dd>
         <dt>Access Token:</dt>
         <dd>{{accessToken}}</dd>
-        <dt>User:</dt>
-        <dd>{{user}}</dd>
+        <ng-container *ngIf="userFields">
+          <ng-container *ngFor="let field of userFields">
+            <dt>{{field}}:</dt>
+            <dd>{{user[field]}}</dd>
+          </ng-container>
+        </ng-container>
       </dl>
     </div>
   </section>

@@ -12,6 +12,7 @@ export class AppComponent {
   currentState: string;
   accessToken: string;
   user: any;
+  userFields: string[];
 
   constructor(
     private fb: FacebookService,
@@ -33,6 +34,8 @@ export class AppComponent {
       this.fb.api('/me?fields=id,email,first_name,last_name,picture,gender')
       .then(userObj => {
         console.log('userObj', userObj);
+        this.user = userObj;
+        this.userFields = Object.keys(this.user);
       });
     }, err => {
       console.log('error', err);
